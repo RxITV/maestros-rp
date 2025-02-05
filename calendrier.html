@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📅 Calendrier des Formations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calendar-container">
+        <h1>📅 Calendrier des Formations</h1>
+        
+        <div class="controls">
+            <div class="top-buttons">
+                <button onclick="location.href='index.html'" class="btn-small">🏠</button>
+                <button id="dark-mode-toggle" class="btn-small">🌙</button>
+            </div>
+            <select id="day-filter">
+                <option value="Tous">🌍 Tous les jours</option>
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+                <option value="Samedi">Samedi</option>
+                <option value="Dimanche">Dimanche</option>
+            </select>
+        </div>
+
+        <ul id="calendar-list"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const calendarList = document.getElementById("calendar-list");
+            const dayFilter = document.getElementById("day-filter");
+            const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+            let schedule = JSON.parse(localStorage.getItem("schedule")) || [];
+
+            if (localStorage.getItem("dark-mode") === "enabled") {
+                document.body.classList.add("dark-mode");
+            }
+
+            darkModeToggle.addEventListener("click", function () {
+                document.body.classList.toggle("dark-mode");
+                localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+            });
+
+            function renderCalendar(filter = "Tous") {
+                calendarList.innerHTML = "";
+
+                let filteredSchedule = filter === "Tous" ? schedule : schedule.filter(task => task.day === filter);
+
+                filteredSchedule.sort((a, b) => {
+                    const daysOrder = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+                    return daysOrder.indexOf(a.day) - daysOrder.indexOf(b.day) || a.time.localeCompare(b.time);
+                });
+
+                filteredSchedule.forEach(item => {
+                    let details = `
+                        <div class="task-card">
+                            <h2>🕒 ${item.day} - ${item.time}</h2>
+                            <p>📌 <strong>Formation :</strong> ${item.task}</p>
+                            ${item.grade ? `<p>🎖️ <strong>Grade :</strong> ${item.grade}</p>` : ""}
+                            ${item.optional ? `<p>🛠️ <strong>Unité :</strong> ${item.optional}</p>` : ""}
+                            <p>🔢 <strong>Matricule :</strong> ${item.number}</p>
+                        </div>
+                    `;
+
+                    const li = document.createElement("li");
+                    li.innerHTML = details;
+                    calendarList.appendChild(li);
+                });
+            }
+
+            dayFilter.addEventListener("change", () => {
+                renderCalendar(dayFilter.value);
+            });
+
+            renderCalendar();
+        });
+    </script>
+</body>
+</html>

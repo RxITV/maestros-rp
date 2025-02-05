@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Formations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- <button id="dark-mode-toggle" class="btn-small">🌙</button> -->
+    <div class="controls">
+        <div class="top-buttons">
+            <button onclick="location.href='index.html'" class="btn-small">🏠</button>
+            <button id="dark-mode-toggle" class="btn-small">🌙</button>
+            <button id="test-button" class="btn-small">🛠️</button>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="title">Gestion des Formations</h1>
+        <select id="day">
+            <option value="Lundi">Lundi</option>
+            <option value="Mardi">Mardi</option>
+            <option value="Mercredi">Mercredi</option>
+            <option value="Jeudi">Jeudi</option>
+            <option value="Vendredi">Vendredi</option>
+            <option value="Samedi">Samedi</option>
+            <option value="Dimanche">Dimanche</option>
+        </select>
+        <input type="text" id="task" placeholder="Formation">
+        <input type="time" id="time">
+
+        <!-- ✅ Sélection du grade (optionnel) -->
+        <select id="task-grade">
+            <option value="" selected>Grade (facultatif)</option>
+            <option value="Tous les grades">Tous les grades</option>
+            <option value="Junior">Junior</option>
+            <option value="Junior Senior">Junior Senior</option>
+            <option value="Adjoint">Adjoint</option>
+            <option value="Adjoint-II">Adjoint-II</option>
+            <option value="Adjoint-Senior">Adjoint-Senior</option>
+            <option value="Deputy">Deputy</option>
+            <option value="Deputy-Senior">Deputy-Senior</option>
+            <option value="Sergent">Sergent</option>
+            <option value="Sergent-Chef">Sergent-Chef</option>
+            <option value="Lieutenant">Lieutenant</option>
+            <option value="Lieutenant-Chef">Lieutenant-Chef</option>
+            <option value="Major">Major</option>
+            <option value="Major-Chef">Major-Chef</option>
+            <option value="Sheriff-Adjoint">Sheriff-Adjoint</option>
+            <option value="Sheriff">Sheriff</option>
+        </select>
+
+        <!-- ✅ Nouvelle case optionnelle -->
+        <select id="task-optional">
+            <option value="" selected>Unité (facultatif)</option>
+            <option value="SWAT">SWAT</option>
+            <option value="Unité 2">GND</option>
+            <option value="Haut Gradé">Haut Gradé</option>
+        </select>
+
+        <!-- ✅ Sélection du numéro -->
+        <select id="task-number">
+            <option value="" disabled selected>Matricule (101-199)</option>
+        </select>
+        
+        <!-- ✅ Boutons -->
+        <button onclick="addTask()">➕ Ajouter</button>
+        <button onclick="sendToDiscord()">📤 Envoyer</button>
+        <button onclick="editEmbed()">✏️ Modifier</button>
+        <button onclick="updateSchedule()">🔄 Mettre à jour</button>
+        <!-- <button onclick="location.href='calendrier.html'">📆 Calendrier</button> -->
+
+
+        
+        <ul id="schedule-list"></ul>
+    </div>
+    <!-- <button onclick="location.href='index.html'" class="btn">🏠 Retour à l'Accueil</button> -->
+
+    <script src="script.js">
+
+document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+if (localStorage.getItem("dark-mode") === "enabled") {
+    document.body.classList.add("dark-mode");
+}
+
+darkModeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+});
+    });
+    </script>
+</body>
+</html>

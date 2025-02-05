@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Listes</title>
+  <link rel="stylesheet" href="stylestodo.css">
+</head>
+<body>
+
+    <div class="controls">
+        <div class="top-buttons">
+            <button onclick="location.href='index.html'" class="btn-small">🏠</button>
+        </div>
+    </div>
+
+
+  <button id="toggleMode">🌙</button>
+  <div class="app">
+    <h1>Gestion des Listes</h1>
+    
+    <div class="category-section">
+      <input type="text" id="categoryInput" placeholder="Ajouter une catégorie">
+      <button id="addCategory">Ajouter</button>
+      <ul id="categoryList"></ul>
+    </div>
+
+    <div class="task-section" style="display: none;">
+      <h2 id="categoryTitle"></h2>
+      <input type="text" id="todoInput" placeholder="Ajouter une tâche">
+      <button id="addButton">Ajouter</button>
+      <ul id="todoList"></ul>
+      <h3>Tâches complétées</h3>
+      <ul id="completedList"></ul>
+      <button id="backToCategories">⬅ Retour</button>
+    </div>
+  </div>
+  
+  <script src="scripttodo.js"></script>
+</body>
+</html>
